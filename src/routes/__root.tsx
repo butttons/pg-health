@@ -1,10 +1,9 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import { PGliteProvider } from "@electric-sql/pglite-react";
-import { GithubLogo, Heart } from "@phosphor-icons/react";
+import { GithubLogo, Heartbeat } from "@phosphor-icons/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 import { NavBarItems } from "@/components/nav-bar-items";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -23,7 +22,7 @@ export const Route = createRootRoute({
 								href="/"
 								className="flex gap-2 items-center text-primary hover:opacity-75"
 							>
-								<Heart size={32} />
+								<Heartbeat size={32} />
 								<span className="text-lg font-medium">PGHealth</span>
 							</Link>
 							<div className="flex gap-2 items-center">
@@ -41,7 +40,6 @@ export const Route = createRootRoute({
 						<footer className="p-4 mx-4 text-center border-t lg:mx-8">
 							Made by <a href="https://yash.bio">butttons</a>
 						</footer>
-						<TanStackRouterDevtools />
 					</PGliteProvider>
 				</ThemeProvider>
 			</QueryClientProvider>
