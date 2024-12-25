@@ -1,5 +1,7 @@
 "use client";
 
+import type { ColumnDef } from "@tanstack/react-table";
+
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -9,8 +11,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowsDownUp, List } from "@phosphor-icons/react";
 
 export type HealthRecordRow = {
 	id: string;
@@ -35,7 +36,7 @@ export const columns: ColumnDef<HealthRecordRow>[] = [
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
 					Type
-					<ArrowUpDown className="ml-2 w-4 h-4" />
+					<ArrowsDownUp className="ml-2 w-4 h-4" />
 				</Button>
 			);
 		},
@@ -75,7 +76,7 @@ export const columns: ColumnDef<HealthRecordRow>[] = [
 					<DropdownMenuTrigger asChild>
 						<Button variant="ghost" className="p-0 w-8 h-8">
 							<span className="sr-only">Open menu</span>
-							<MoreHorizontal className="w-4 h-4" />
+							<List />
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">

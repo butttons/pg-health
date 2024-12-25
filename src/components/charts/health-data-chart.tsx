@@ -1,8 +1,7 @@
 "use client";
 
-import { PlusCircle, X } from "@phosphor-icons/react";
+import { PlusCircle, Trash, X } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
-import { Trash } from "lucide-react";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 

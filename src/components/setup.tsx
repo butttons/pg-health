@@ -1,9 +1,10 @@
+import { Export, FileZip, Upload } from "@phosphor-icons/react";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
+
 import { FileUploader } from "@/components/file-uploader";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TypographyInlineCode } from "@/components/ui/typograpghy";
-import { Export, FileZip, Upload } from "@phosphor-icons/react";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
 
 export function Setup() {
 	return (

@@ -1,5 +1,6 @@
-import { HealthRecordsTable } from "@/components/health-records-table";
 import { createLazyFileRoute } from "@tanstack/react-router";
+
+import { HealthRecordsTable } from "@/components/health-records-table";
 
 export const Route = createLazyFileRoute("/explorer")({
 	component: RouteComponent,

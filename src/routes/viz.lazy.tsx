@@ -1,6 +1,7 @@
+import { createLazyFileRoute } from "@tanstack/react-router";
+
 import { HealthDataChart } from "@/components/charts/health-data-chart";
 import { HealthStats } from "@/components/health-stats";
-import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/viz")({
 	component: RouteComponent,

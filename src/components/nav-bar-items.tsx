@@ -1,3 +1,9 @@
+import { ChartBar, Code, List, Table, Upload } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
+
+import { pg } from "@/workers/pglite.worker-instance";
+
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -5,11 +11,6 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { pg } from "@/workers/pglite.worker-instance";
-import { ChartBar, Code, Table, Upload } from "@phosphor-icons/react";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
 
 export const NavBarItems = () => {
 	const { data, isLoading } = useQuery({
@@ -35,7 +36,7 @@ export const NavBarItems = () => {
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant="outline" size="icon">
-							<Menu />
+							<List />
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>

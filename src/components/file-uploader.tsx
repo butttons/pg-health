@@ -165,7 +165,11 @@ export function FileUploader() {
 				)}
 			</Dropzone>
 			<div className="flex flex-col gap-4 mt-4 md:items-center md:flex-row">
-				<Button size="lg" disabled={!file} onClick={handleUploadSubmission}>
+				<Button
+					size="lg"
+					disabled={!file || importState.importProgress > 0}
+					onClick={handleUploadSubmission}
+				>
 					Import file
 				</Button>
 				<Button

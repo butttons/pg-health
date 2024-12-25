@@ -1,13 +1,14 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { Button } from "@/components/ui/button";
 import { PGliteProvider } from "@electric-sql/pglite-react";
 import { GithubLogo, Heartbeat } from "@phosphor-icons/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
 
-import { NavBarItems } from "@/components/nav-bar-items";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { pg } from "@/workers/pglite.worker-instance";
+
+import { NavBarItems } from "@/components/nav-bar-items";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +31,11 @@ export const Route = createRootRoute({
 								<ThemeToggle />
 
 								<Button asChild variant="outline" size="icon">
-									<a href="https://github.com/butttons/pg-health">
+									<a
+										href="https://github.com/butttons/pg-health"
+										target="_blank"
+										rel="noreferrer"
+									>
 										<GithubLogo />
 									</a>
 								</Button>

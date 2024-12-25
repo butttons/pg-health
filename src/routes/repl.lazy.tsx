@@ -1,3 +1,8 @@
+import { Repl } from "@electric-sql/pglite-repl";
+import { createLazyFileRoute } from "@tanstack/react-router";
+
+import { pg } from "@/workers/pglite.worker-instance";
+
 import { useTheme } from "@/components/theme-provider";
 import {
 	Accordion,
@@ -6,9 +11,6 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardTitle } from "@/components/ui/card";
-import { pg } from "@/workers/pglite.worker-instance";
-import { Repl } from "@electric-sql/pglite-repl";
-import { createLazyFileRoute } from "@tanstack/react-router";
 export const Route = createLazyFileRoute("/repl")({
 	component: About,
 });
