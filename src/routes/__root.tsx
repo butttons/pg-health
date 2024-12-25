@@ -42,7 +42,7 @@ export const Route = createRootRoute({
 							</div>
 						</nav>
 						<Outlet />
-						<footer className="p-4 mx-4 text-center border-t lg:mx-8">
+						<footer className="p-4 mx-4 mt-auto text-center border-t lg:mx-8">
 							Made by <a href="https://yash.bio">butttons</a>
 						</footer>
 					</PGliteProvider>

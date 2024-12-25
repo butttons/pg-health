@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { pg } from "@/workers/pglite.worker-instance";
 
+import { Code } from "@phosphor-icons/react";
 import { type HealthRecordRow, columns } from "./health-records/columns";
 import { DataTable } from "./health-records/data-table";
 import { Alert, AlertDescription } from "./ui/alert";
@@ -86,7 +87,9 @@ export function HealthRecordsTable() {
 					>
 						<TabsList className="grid grid-cols-2 w-full">
 							<TabsTrigger value="builder">Default Query</TabsTrigger>
-							<TabsTrigger value="custom">Custom Query</TabsTrigger>
+							<TabsTrigger value="custom">
+								<Code className="mr-2" /> Custom SQL
+							</TabsTrigger>
 						</TabsList>
 
 						<TabsContent value="builder">
@@ -100,8 +103,8 @@ export function HealthRecordsTable() {
 						</TabsContent>
 
 						<TabsContent value="custom">
-							<div className="space-y-4">
-								<Alert>
+							<div className="pt-2 space-y-4">
+								<Alert variant="default">
 									<AlertDescription className="space-y-2">
 										<div>Your query must return these columns:</div>
 										<code className="block ml-2">

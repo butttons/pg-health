@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusCircle, Trash, X } from "@phosphor-icons/react";
+import { Code, PlusCircle, Trash, X } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
@@ -251,7 +251,8 @@ export function HealthDataChart() {
 							UI Builder
 						</TabsTrigger>
 						<TabsTrigger value="sql" onClick={() => setActiveTab("sql")}>
-							Raw SQL
+							<Code className="mr-2" />
+							Custom SQL
 						</TabsTrigger>
 					</TabsList>
 

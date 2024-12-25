@@ -114,7 +114,6 @@ export const HealthStats = () => {
 					value={`${formatDate(statsQueries.dateRange.data?.min)} - ${formatDate(
 						statsQueries.dateRange.data?.max,
 					)}`}
-					valueClassName="text-xl"
 				/>
 				<StatCard
 					title="Total Devices"

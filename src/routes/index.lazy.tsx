@@ -36,9 +36,9 @@ function Index() {
 			<div className="container relative z-10 p-4 mx-auto lg:px-8">
 				<div className="flex flex-col gap-8 justify-center items-center my-20">
 					<h1 className="text-5xl font-semibold tracking-tight text-center text-gray-900 dark:text-white text-balance sm:text-7xl">
-						Run SQL on your
+						Unlock insights from your
 						<br />
-						Apple health data
+						Apple Health data
 					</h1>
 					<div className="text-2xl text-gray-700 dark:text-gray-300">
 						No sign ups. Run locally.
