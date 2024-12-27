@@ -3,15 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ArrowsDownUp, List } from "@phosphor-icons/react";
+import { ArrowsDownUp } from "@phosphor-icons/react";
 
 export type HealthRecordRow = {
 	id: string;
@@ -64,34 +56,6 @@ export const columns: ColumnDef<HealthRecordRow>[] = [
 		header: "Date",
 		cell: ({ row }) => {
 			return new Date(row.getValue("startDate")).toLocaleDateString();
-		},
-	},
-	{
-		id: "actions",
-		cell: ({ row }) => {
-			const record = row.original;
-
-			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" className="p-0 w-8 h-8">
-							<span className="sr-only">Open menu</span>
-							<List />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem
-							onClick={() => navigator.clipboard.writeText(record.id)}
-						>
-							Copy record ID
-						</DropdownMenuItem>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>View details</DropdownMenuItem>
-						<DropdownMenuItem>View metadata</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			);
 		},
 	},
 ];

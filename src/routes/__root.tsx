@@ -18,7 +18,7 @@ export const Route = createRootRoute({
 			<QueryClientProvider client={queryClient}>
 				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 					<PGliteProvider db={pg}>
-						<nav className="flex justify-between p-4 border-b">
+						<nav className="flex relative z-10 justify-between p-4 border-b backdrop-blur">
 							<Link
 								href="/"
 								className="flex gap-2 items-center text-primary hover:opacity-75"

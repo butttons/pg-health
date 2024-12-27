@@ -150,6 +150,44 @@ CREATE TABLE IF NOT EXISTS record_metadata(
 			return response;
 		});
 	}
+
+	async copyInsertRecords(records: HealthRecord[]) {
+		const validRecords = records.filter(
+			(r) => r.id && r.type && r.value !== undefined,
+		);
+
+		if (validRecords.length === 0) {
+			return {
+				records: 0,
+				insertedRecords: 0,
+				insertedMetadata: 0,
+				recordsDiff: 0,
+			};
+		}
+
+		// Prepare CSV data for COPY command
+		const csvData = validRecords
+			.map((r) => {
+				return `${r.id},${r.type},${r.sourceName || ""},${r.sourceVersion || ""},${r.device || ""},${r.unit || ""},${r.value},${new Date(r.creationDate).toISOString()},${new Date(r.startDate).toISOString()},${new Date(r.endDate).toISOString()}`;
+			})
+			.join("\n");
+
+		// Execute the COPY command
+		const result = await this.pg.query(
+			`
+			COPY records (id, type, source_name, source_version, device, unit, value, creation_date, start_date, end_date)
+			FROM STDIN WITH CSV $1
+		`,
+			[csvData],
+		);
+
+		return {
+			records: validRecords.length,
+			insertedRecords: Number(result.affectedRows), // Adjust based on your database's response
+			insertedMetadata: 0, // Handle metadata if needed
+			recordsDiff: 0, // Calculate if necessary
+		};
+	}
 }
 
 export const database = new Database(pg);

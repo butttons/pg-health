@@ -32,7 +32,7 @@ function Index() {
 
 	return (
 		<div className="relative">
-			<div className="absolute z-0 w-full h-full bg-gradient-to-br from-gray-200 to-white dark:to-black dark:from-gray-900" />
+			<div className="absolute -top-16 z-0 w-full h-full bg-gradient-to-br from-gray-200 to-white dark:to-black dark:from-gray-900" />
 			<div className="container relative z-10 p-4 mx-auto lg:px-8">
 				<div className="flex flex-col gap-8 justify-center items-center my-20">
 					<h1 className="text-5xl font-semibold tracking-tight text-center text-gray-900 dark:text-white text-balance sm:text-7xl">
