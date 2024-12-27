@@ -65,9 +65,9 @@ CREATE TABLE IF NOT EXISTS record_metadata(
 						records.map((r) => r.device),
 						records.map((r) => r.unit),
 						records.map((r) => r.value),
-						records.map((r) => new Date(r.creationDate)),
-						records.map((r) => new Date(r.startDate)),
-						records.map((r) => new Date(r.endDate)),
+						records.map((r) => new Date(r.creationDate).toISOString()),
+						records.map((r) => new Date(r.startDate).toISOString()),
+						records.map((r) => new Date(r.endDate).toISOString()),
 					],
 				);
 				const insertedRows = Number(result.affectedRows);

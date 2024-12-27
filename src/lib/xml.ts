@@ -75,7 +75,7 @@ export class StreamingXMLParser {
 			type: attrs.type,
 			sourceName: attrs.sourceName,
 			sourceVersion: attrs.sourceVersion,
-			device: "device" in attrs ? decodeURIComponent(attrs.device) : undefined,
+			device: "device" in attrs ? decodeURI(attrs.device) : undefined,
 			unit: attrs.unit,
 			value: Number(attrs.value),
 			creationDate: attrs.creationDate,
@@ -112,6 +112,7 @@ export class StreamingXMLParser {
 
 	private generateRecordId(attributes: Record<string, string>): string {
 		const uniqueString = JSON.stringify(attributes);
+		console.log("attributes.creationDate:", attributes.creationDate);
 
 		let hash = 0;
 		for (let i = 0; i < uniqueString.length; i++) {
@@ -120,7 +121,8 @@ export class StreamingXMLParser {
 			hash = hash & hash;
 		}
 
-		const timestamp = new Date(attributes.creationDate).getTime();
-		return `${Math.abs(hash).toString(16)}-${timestamp.toString(16)}`;
+		// const timestamp = new Date(attributes.creationDate).getTime();
+		// return `${Math.abs(hash).toString(16)}-${timestamp.toString(16)}`;
+		return `${Math.abs(hash).toString(16)}`;
 	}
 }
