@@ -88,6 +88,7 @@ export function FileUploader() {
 				})
 				.catch((error) => {
 					setError(`insert-records: ${JSON.stringify(error, null, 2)}`);
+					console.error("insert-records:", error);
 				});
 		};
 
@@ -100,8 +101,8 @@ export function FileUploader() {
 		if (!file) return;
 
 		await database.init().catch((error) => {
-			setError(`insert-records: ${JSON.stringify(error, null, 2)}`);
-			console.error(error);
+			setError(`database-init: ${JSON.stringify(error, null, 2)}`);
+			console.error("database-init:", error);
 		});
 
 		const CHUNK_SIZE = 1024 * 1024 * 10;
