@@ -75,12 +75,13 @@ export class StreamingXMLParser {
 			type: attrs.type,
 			sourceName: attrs.sourceName,
 			sourceVersion: attrs.sourceVersion,
-			device: "device" in attrs ? decodeURI(attrs.device) : undefined,
+			device:
+				"device" in attrs ? this.sanitizeHTMLEntities(attrs.device) : undefined,
 			unit: attrs.unit,
 			value: Number(attrs.value),
-			creationDate: attrs.creationDate,
-			startDate: attrs.startDate,
-			endDate: attrs.endDate,
+			creationDate: this.sanitizeDate(attrs.creationDate),
+			startDate: this.sanitizeDate(attrs.startDate),
+			endDate: this.sanitizeDate(attrs.endDate),
 		};
 	}
 
@@ -90,6 +91,22 @@ export class StreamingXMLParser {
 			key: attrs.key,
 			value: attrs.value,
 		};
+	}
+
+	private sanitizeHTMLEntities(htmlString: string) {
+		const entities = {
+			"&lt;": "<",
+			"&gt;": ">",
+			"&amp;": "&",
+			"&quot;": '"',
+			"&#39;": "'",
+		};
+
+		return htmlString.replace(
+			/&lt;|&gt;|&amp;|&quot;|&#39;/g,
+			// @ts-expect-error the regex should only match the given characters
+			(match) => entities?.[match],
+		);
 	}
 
 	private extractAttributes(tag: string): Record<string, string> {
@@ -110,9 +127,12 @@ export class StreamingXMLParser {
 		this.isInRecord = false;
 	}
 
+	private sanitizeDate(dateString: string) {
+		return dateString.replace(/\s{1}(\+\d{2})(\d{2})$/, "$1:$2");
+	}
+
 	private generateRecordId(attributes: Record<string, string>): string {
 		const uniqueString = JSON.stringify(attributes);
-		console.log("attributes.creationDate:", attributes.creationDate);
 
 		let hash = 0;
 		for (let i = 0; i < uniqueString.length; i++) {
@@ -121,8 +141,9 @@ export class StreamingXMLParser {
 			hash = hash & hash;
 		}
 
-		// const timestamp = new Date(attributes.creationDate).getTime();
-		// return `${Math.abs(hash).toString(16)}-${timestamp.toString(16)}`;
-		return `${Math.abs(hash).toString(16)}`;
+		const timestamp = new Date(
+			this.sanitizeDate(attributes.creationDate),
+		).getTime();
+		return `${Math.abs(hash).toString(16)}-${timestamp.toString(16)}`;
 	}
 }
