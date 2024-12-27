@@ -68,6 +68,8 @@ export const HealthStats = () => {
 		mutationFn: async () => {
 			await pg.query("TRUNCATE record_metadata;");
 			await pg.query("TRUNCATE records CASCADE;");
+			await pg.query("DROP TABLE record_metadata;");
+			await pg.query("DROP TABLE records;");
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["stats"] });

@@ -6,6 +6,7 @@ import Dropzone, { type DropzoneRef } from "react-dropzone";
 
 import { importWorker } from "@/workers/import.worker-instance";
 
+import { Alert } from "@/components/ui/alert";
 import { database } from "@/lib/pg";
 import type { HealthRecord } from "@/lib/xml";
 
@@ -58,6 +59,7 @@ const formatProgress = (number: number) => number.toFixed(2);
 
 export function FileUploader() {
 	const [file, setFile] = useState<File | null>(null);
+	const [error, setError] = useState<string | null>(null);
 
 	const [importState, dispatch] = useReducer(importReducer, {
 		importProgress: 0,
@@ -75,13 +77,18 @@ export function FileUploader() {
 				progress: event.data.progress,
 			});
 
-			database.batchInsertRecords(event.data.records).then((response) => {
-				dispatch({
-					type: "import-ingest",
-					progress: event.data.progress,
-					count: response?.insertedRecords ?? 0,
+			database
+				.batchInsertRecords(event.data.records)
+				.then((response) => {
+					dispatch({
+						type: "import-ingest",
+						progress: event.data.progress,
+						count: response?.insertedRecords ?? 0,
+					});
+				})
+				.catch((error) => {
+					setError(`insert-records: ${JSON.stringify(error, null, 2)}`);
 				});
-			});
 		};
 
 		return () => {
@@ -93,6 +100,7 @@ export function FileUploader() {
 		if (!file) return;
 
 		await database.init().catch((error) => {
+			setError(`insert-records: ${JSON.stringify(error, null, 2)}`);
 			console.error(error);
 		});
 
@@ -178,6 +186,7 @@ export function FileUploader() {
 					Total records added - {importState.totalCount.toLocaleString()}
 				</span>
 			</div>
+			{error && <Alert>{error}</Alert>}
 			<div className="flex flex-col gap-2 mt-4">
 				<div className="flex flex-1 gap-2 items-center">
 					<div className="text-nowrap">

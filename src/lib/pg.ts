@@ -55,8 +55,7 @@ CREATE TABLE IF NOT EXISTS record_metadata(
               $1::text[], $2::text[], $3::text[], $4::text[], $5::text[],
               $6::text[], $7::real[], $8::timestamp[], $9::timestamp[], $10::timestamp[]
               )
-              ON CONFLICT (id) DO NOTHING
-              `,
+              ON CONFLICT (id) DO NOTHING`,
 					[
 						records.map((r) => r.id),
 						records.map((r) => r.type),
