@@ -87,7 +87,9 @@ export function FileUploader() {
 					});
 				})
 				.catch((error) => {
-					setError(`insert-records: ${JSON.stringify(error, null, 2)}`);
+					setError(
+						`insert-records: ${error?.message} - ${JSON.stringify(error, null, 2)}`,
+					);
 					console.error("insert-records:", error);
 				});
 		};
