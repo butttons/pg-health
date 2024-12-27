@@ -52,20 +52,13 @@ function buildHealthDataQuery(
 	}
 
 	if (dateUnit === "day") {
-		dateExpression = "SUBSTR(creation_date, 1, 10)";
+		dateExpression = "DATE(creation_date)";
 	} else if (dateUnit === "month") {
-		dateExpression = "SUBSTR(creation_date, 1, 7)";
+		dateExpression = "DATE_TRUNC('month', creation_date)";
 	} else if (dateUnit === "quarter") {
-		dateExpression = `
-      SUBSTR(creation_date, 1, 4) || '-Q' || 
-      CASE 
-        WHEN CAST(SUBSTR(creation_date, 6, 2) AS INTEGER) BETWEEN 1 AND 3 THEN '1'
-        WHEN CAST(SUBSTR(creation_date, 6, 2) AS INTEGER) BETWEEN 4 AND 6 THEN '2'
-        WHEN CAST(SUBSTR(creation_date, 6, 2) AS INTEGER) BETWEEN 7 AND 9 THEN '3'
-        ELSE '4'
-      END`;
+		dateExpression = "DATE_TRUNC('quarter', creation_date)";
 	} else if (dateUnit === "year") {
-		dateExpression = "SUBSTR(creation_date, 1, 4)";
+		dateExpression = "DATE_TRUNC('year', creation_date)";
 	} else {
 		throw new Error("Unsupported date unit");
 	}

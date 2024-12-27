@@ -4,9 +4,10 @@ import { TypographyInlineCode } from "@/components/ui/typograpghy";
 import { createRef, useEffect, useReducer, useState } from "react";
 import Dropzone, { type DropzoneRef } from "react-dropzone";
 
+import { importWorker } from "@/workers/import.worker-instance";
+
 import { database } from "@/lib/pg";
 import type { HealthRecord } from "@/lib/xml";
-import { importWorker } from "../workers/import.worker-instance";
 
 type ImportState = {
 	importProgress: number;
@@ -95,21 +96,16 @@ export function FileUploader() {
 			console.error(error);
 		});
 
-		const CHUNK_SIZE = 1024 * 1024;
-		let offset = 0;
+		const CHUNK_SIZE = 1024 * 1024 * 10;
+		const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
 
-		function processChunk(file: File) {
-			if (offset >= file.size) {
-				importWorker.postMessage({ type: "complete" });
-				dispatch({ type: "import-progress", progress: 100 });
-				return;
-			}
-
+		for (let i = 0; i < totalChunks; i++) {
+			const offset = i * CHUNK_SIZE;
 			const blob = file.slice(offset, offset + CHUNK_SIZE);
 			const reader = new FileReader();
 
 			reader.onload = (event) => {
-				const importProgress = (offset / file.size) * 100;
+				const importProgress = ((i + 1) / totalChunks) * 100;
 
 				importWorker.postMessage({
 					type: "progress",
@@ -118,20 +114,18 @@ export function FileUploader() {
 					size: file.size,
 				});
 
-				offset += CHUNK_SIZE;
 				dispatch({ type: "import-progress", progress: importProgress });
-				processChunk(file);
+
+				if (i === totalChunks - 1) {
+					importWorker.postMessage({ type: "complete" });
+				}
 			};
 
 			reader.readAsArrayBuffer(blob);
+			await new Promise((resolve) => {
+				reader.onloadend = resolve;
+			});
 		}
-
-		importWorker.postMessage({
-			type: "init",
-			size: file.size,
-		});
-
-		processChunk(file);
 	};
 
 	const handleUpload = (files: File[]) => {

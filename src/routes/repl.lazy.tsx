@@ -34,9 +34,9 @@ function About() {
   device text,
   unit text,
   value real NOT NULL,
-  creation_date text,
-  start_date text,
-  end_date text
+  creation_date timestamp,
+  start_date timestamp,
+  end_date timestamp
 );
 
 CREATE TABLE IF NOT EXISTS record_metadata(

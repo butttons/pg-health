@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS records(
   device text,
   unit text,
   value real NOT NULL,
-  creation_date text,
-  start_date text,
-  end_date text
+  creation_date timestamp,
+  start_date timestamp,
+  end_date timestamp
 );
 
 CREATE TABLE IF NOT EXISTS record_metadata(
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS record_metadata(
   PRIMARY KEY (record_id, key)
 );
 
-CREATE INDEX idx_records_type ON records(type);
+  CREATE INDEX idx_records_type ON records(type);
  CREATE INDEX idx_records_dates ON records(start_date, end_date);
  CREATE INDEX idx_metadata_key ON record_metadata(key); 
     `);
@@ -53,7 +53,7 @@ CREATE INDEX idx_records_type ON records(type);
             ) 
             SELECT * FROM UNNEST (
               $1::text[], $2::text[], $3::text[], $4::text[], $5::text[],
-              $6::text[], $7::real[], $8::text[], $9::text[], $10::text[]
+              $6::text[], $7::real[], $8::timestamp[], $9::timestamp[], $10::timestamp[]
               )
               ON CONFLICT (id) DO NOTHING
               `,
@@ -65,9 +65,9 @@ CREATE INDEX idx_records_type ON records(type);
 						records.map((r) => r.device),
 						records.map((r) => r.unit),
 						records.map((r) => r.value),
-						records.map((r) => r.creationDate),
-						records.map((r) => r.startDate),
-						records.map((r) => r.endDate),
+						records.map((r) => new Date(r.creationDate)),
+						records.map((r) => new Date(r.startDate)),
+						records.map((r) => new Date(r.endDate)),
 					],
 				);
 				const insertedRows = Number(result.affectedRows);
