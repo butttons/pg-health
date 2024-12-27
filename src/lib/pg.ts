@@ -37,47 +37,97 @@ CREATE TABLE IF NOT EXISTS record_metadata(
 	}
 
 	async batchInsertRecords(records: HealthRecord[]) {
-		return await this.pg.transaction(async (tx) => {
-			const response = {
-				records: records.length,
+		// Ensure all records are valid and filter out any invalid entries
+		const validRecords = records.filter(
+			(r) => r.id && r.type && r.value !== undefined,
+		);
+
+		// Check if there are valid records to process
+		if (validRecords.length === 0) {
+			return {
+				records: 0,
 				insertedRecords: 0,
 				insertedMetadata: 0,
 				recordsDiff: 0,
 			};
-			if (records.length > 0) {
-				const result = await tx.query(
-					`
-					INSERT INTO records (
-						id, type, source_name, source_version, device,
-						unit, value, creation_date, start_date, end_date
-            ) 
-            SELECT * FROM UNNEST (
-              $1::text[], $2::text[], $3::text[], $4::text[], $5::text[],
-              $6::text[], $7::real[], $8::timestamp[], $9::timestamp[], $10::timestamp[]
-              )
-              ON CONFLICT (id) DO NOTHING`,
-					[
-						records.map((r) => r.id),
-						records.map((r) => r.type),
-						records.map((r) => r.sourceName),
-						records.map((r) => r.sourceVersion),
-						records.map((r) => r.device),
-						records.map((r) => r.unit),
-						records.map((r) => r.value),
-						records.map((r) => new Date(r.creationDate)),
-						records.map((r) => new Date(r.startDate)),
-						records.map((r) => new Date(r.endDate)),
-					],
-				);
-				const insertedRows = Number(result.affectedRows);
-				if (insertedRows !== records.length) {
-					const diff = records.length - insertedRows;
-					response.recordsDiff = diff;
-				}
-				response.insertedRecords = insertedRows;
+		}
+
+		return await this.pg.transaction(async (tx) => {
+			const response = {
+				records: validRecords.length,
+				insertedRecords: 0,
+				insertedMetadata: 0,
+				recordsDiff: 0,
+			};
+
+			const ids = validRecords.map((r) => r.id);
+			const types = validRecords.map((r) => r.type);
+			const sourceNames = validRecords.map((r) => r.sourceName);
+			const sourceVersions = validRecords.map((r) => r.sourceVersion);
+			const devices = validRecords.map((r) => r.device);
+			const units = validRecords.map((r) => r.unit);
+			const values = validRecords.map((r) => r.value);
+			const creationDates = validRecords.map((r) =>
+				new Date(r.creationDate).toISOString(),
+			);
+			const startDates = validRecords.map((r) =>
+				new Date(r.startDate).toISOString(),
+			);
+			const endDates = validRecords.map((r) =>
+				new Date(r.endDate).toISOString(),
+			);
+
+			// Ensure all arrays have the same length
+			if (
+				new Set([
+					ids.length,
+					types.length,
+					sourceNames.length,
+					sourceVersions.length,
+					devices.length,
+					units.length,
+					values.length,
+					creationDates.length,
+					startDates.length,
+					endDates.length,
+				]).size !== 1
+			) {
+				throw new RangeError("Array lengths do not match.");
 			}
 
-			const metadata = records.flatMap(
+			const result = await tx.query(
+				`
+				INSERT INTO records (
+					id, type, source_name, source_version, device,
+					unit, value, creation_date, start_date, end_date
+				) 
+				SELECT * FROM UNNEST (
+					$1::text[], $2::text[], $3::text[], $4::text[], $5::text[],
+					$6::text[], $7::real[], $8::timestamp[], $9::timestamp[], $10::timestamp[]
+				)
+				ON CONFLICT (id) DO NOTHING`,
+				[
+					ids,
+					types,
+					sourceNames,
+					sourceVersions,
+					devices,
+					units,
+					values,
+					creationDates,
+					startDates,
+					endDates,
+				],
+			);
+
+			const insertedRows = Number(result.affectedRows);
+			if (insertedRows !== validRecords.length) {
+				const diff = validRecords.length - insertedRows;
+				response.recordsDiff = diff;
+			}
+			response.insertedRecords = insertedRows;
+
+			const metadata = validRecords.flatMap(
 				(r) => r.metadata?.map((m) => ({ record_id: r.id, ...m })) ?? [],
 			);
 
