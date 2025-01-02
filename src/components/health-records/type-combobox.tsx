@@ -5,6 +5,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+import { HealthIcon } from "@/components/health-icon";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
@@ -43,7 +44,14 @@ export function TypeCombobox({
 					aria-expanded={open}
 					className="justify-between w-full"
 				>
-					{value || "Select type..."}
+					{value ? (
+						<>
+							{" "}
+							<HealthIcon type={value} /> {value}{" "}
+						</>
+					) : (
+						"Select type..."
+					)}
 					<ChevronsUpDown className="ml-2 w-4 h-4 opacity-50 shrink-0" />
 				</Button>
 			</PopoverTrigger>
@@ -68,6 +76,7 @@ export function TypeCombobox({
 											value === item.type ? "opacity-100" : "opacity-0",
 										)}
 									/>
+									<HealthIcon type={item.type} />
 									{item.type}
 								</CommandItem>
 							))}

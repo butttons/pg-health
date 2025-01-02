@@ -1,6 +1,6 @@
 "use client";
 
-import { Code, PlusCircle, Trash, X } from "@phosphor-icons/react";
+import { Code, PlusCircle, Spinner, Trash, X } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
@@ -229,7 +229,8 @@ export function HealthDataChart() {
 		setCustomQuery(query);
 	};
 
-	if (!typesQuery.data) return null;
+	if (!typesQuery.data)
+		return <Spinner size={32} className="mx-auto my-6 animate-spin" />;
 
 	return (
 		<Card>

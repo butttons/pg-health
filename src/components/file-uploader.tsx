@@ -6,7 +6,6 @@ import Dropzone, { type DropzoneRef } from "react-dropzone";
 
 import { importWorker } from "@/workers/import.worker-instance";
 
-import { Alert } from "@/components/ui/alert";
 import { database } from "@/lib/pg";
 import type { HealthRecord } from "@/lib/xml";
 
@@ -189,7 +188,6 @@ export function FileUploader() {
 					Total records added - {importState.totalCount.toLocaleString()}
 				</span>
 			</div>
-			{error && <Alert>{error}</Alert>}
 			<div className="flex flex-col gap-2 mt-4">
 				<div className="flex flex-1 gap-2 items-center">
 					<div className="text-nowrap">

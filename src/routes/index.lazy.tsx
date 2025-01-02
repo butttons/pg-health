@@ -1,7 +1,10 @@
 import {
+	ChartBar,
+	Code,
 	NumberCircleOne,
 	NumberCircleThree,
 	NumberCircleTwo,
+	Table,
 } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
@@ -102,6 +105,26 @@ function Index() {
 					) : data && data > 0 ? (
 						<div className="">
 							<HealthStats />
+							<div className="grid gap-6 my-6 md:grid-cols-3">
+								<Card className="p-6">
+									<Link href="/viz" className="flex gap-2 items-center">
+										<ChartBar size={64} />
+										<div className="text-3xl">Visualize</div>
+									</Link>
+								</Card>
+								<Card className="p-6">
+									<Link href="/repl" className="flex gap-2 items-center">
+										<Code size={64} />
+										<div className="text-3xl">REPL</div>
+									</Link>
+								</Card>
+								<Card className="p-6">
+									<Link href="/explore" className="flex gap-2 items-center">
+										<Table size={64} />
+										<div className="text-3xl">Explore</div>
+									</Link>
+								</Card>
+							</div>
 						</div>
 					) : (
 						<Setup />

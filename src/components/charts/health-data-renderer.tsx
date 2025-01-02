@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import Chart from "react-apexcharts";
 
 import { useTheme } from "@/components/theme-provider";
+import { Spinner } from "@phosphor-icons/react";
 
 type ChartData = {
 	date: string;
@@ -191,8 +192,8 @@ export function HealthDataRenderer({
 			{isLoading && (
 				<div className="flex absolute inset-0 justify-center items-center backdrop-blur-sm bg-background/50">
 					<div className="flex relative z-10 gap-2 items-center">
-						<div className="w-4 h-4 rounded-full border-2 animate-spin border-primary border-t-transparent" />
-						<span className="text-sm text-muted-foreground">Loading...</span>
+						<Spinner size={24} className="mx-auto my-6 animate-spin" />{" "}
+						<span className="text-sm text-muted-foreground">Loading</span>
 					</div>
 				</div>
 			)}
