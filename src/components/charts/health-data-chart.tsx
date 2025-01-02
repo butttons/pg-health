@@ -11,7 +11,7 @@ import { HealthDataRenderer } from "@/components/charts/health-data-renderer";
 import { TypeCombobox } from "@/components/health-records/type-combobox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DatePickerRange } from "@/components/ui/date-picker-range";
 import { Label } from "@/components/ui/label";
 import {
@@ -38,7 +38,7 @@ function buildHealthDataQuery(
 		| "MEDIAN"
 		| "MODE"
 		| "VARIANCE",
-	dateUnit: "day" | "month" | "quarter" | "year",
+	dateUnit: "day" | "month" | "quarter" | "year" | "week",
 	dateRange?: DateRange,
 ): string {
 	let dateExpression: string;
@@ -53,6 +53,8 @@ function buildHealthDataQuery(
 
 	if (dateUnit === "day") {
 		dateExpression = "DATE(creation_date)";
+	} else if (dateUnit === "week") {
+		dateExpression = "DATE_TRUNC('week', creation_date)";
 	} else if (dateUnit === "month") {
 		dateExpression = "DATE_TRUNC('month', creation_date)";
 	} else if (dateUnit === "quarter") {
@@ -114,6 +116,7 @@ const aggregationMethods = [
 
 const dateUnits = [
 	{ value: "day", label: "Day" },
+	{ value: "week", label: "Week" },
 	{ value: "month", label: "Month" },
 	{ value: "quarter", label: "Quarter" },
 	{ value: "year", label: "Year" },
@@ -235,7 +238,6 @@ export function HealthDataChart() {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Visualize your health data</CardTitle>
 				<Tabs defaultValue="builder" className="w-full">
 					<TabsList className="grid grid-cols-2 w-full">
 						<TabsTrigger

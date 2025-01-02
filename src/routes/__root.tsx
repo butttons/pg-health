@@ -19,7 +19,7 @@ export const Route = createRootRoute({
 				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 					<PGliteProvider db={pg}>
 						<main className="flex relative flex-col min-h-screen">
-							<nav className="flex relative justify-between p-4 border-b backdrop-blur bg-primary-foreground/50 dark:bg-primary-foreground/50">
+							<nav className="flex relative justify-between p-4 border-b backdrop-blur bg-primary-foreground/25">
 								<Link
 									href="/"
 									className="flex gap-2 items-center text-primary hover:opacity-75"
