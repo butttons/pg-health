@@ -153,29 +153,21 @@ export function FileUploader() {
 		for (let i = 0; i < totalChunks; i++) {
 			const offset = i * CHUNK_SIZE;
 			const blob = file.slice(offset, offset + CHUNK_SIZE);
-			const reader = new FileReader();
 
-			reader.onload = (event) => {
-				const importProgress = ((i + 1) / totalChunks) * 100;
+			const importProgress = ((i + 1) / totalChunks) * 100;
 
-				importWorker.postMessage({
-					type: "progress",
-					data: event.target?.result,
-					offset,
-					size: file.size,
-				});
-
-				dispatch({ type: "import-progress", progress: importProgress });
-
-				if (i === totalChunks - 1) {
-					importWorker.postMessage({ type: "complete" });
-				}
-			};
-
-			reader.readAsArrayBuffer(blob);
-			await new Promise((resolve) => {
-				reader.onloadend = resolve;
+			importWorker.postMessage({
+				type: "progress",
+				data: await blob.arrayBuffer(),
+				offset,
+				size: file.size,
 			});
+
+			dispatch({ type: "import-progress", progress: importProgress });
+
+			if (i === totalChunks - 1) {
+				importWorker.postMessage({ type: "complete" });
+			}
 		}
 	};
 
