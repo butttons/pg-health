@@ -94,52 +94,6 @@ export function FileUploader() {
 		};
 	}, []);
 
-	// const handleUploadSubmission = async () => {
-	// 	if (!file) return;
-
-	// 	await database.init().catch((error) => {
-	// 		console.error(error);
-	// 	});
-
-	// 	const CHUNK_SIZE = 1024 * 1024;
-	// 	let offset = 0;
-
-	// 	function processChunk(file: File) {
-	// 		if (offset >= file.size) {
-	// 			importWorker.postMessage({ type: "complete" });
-	// 			dispatch({ type: "import-progress", progress: 100 });
-	// 			return;
-	// 		}
-
-	// 		const blob = file.slice(offset, offset + CHUNK_SIZE);
-	// 		const reader = new FileReader();
-
-	// 		reader.onload = (event) => {
-	// 			const importProgress = (offset / file.size) * 100;
-
-	// 			importWorker.postMessage({
-	// 				type: "progress",
-	// 				data: event.target?.result,
-	// 				offset,
-	// 				size: file.size,
-	// 			});
-
-	// 			offset += CHUNK_SIZE;
-	// 			dispatch({ type: "import-progress", progress: importProgress });
-	// 			processChunk(file);
-	// 		};
-
-	// 		reader.readAsArrayBuffer(blob);
-	// 	}
-
-	// 	importWorker.postMessage({
-	// 		type: "init",
-	// 		size: file.size,
-	// 	});
-
-	// 	processChunk(file);
-	// };
-
 	const handleUploadSubmission = async () => {
 		if (!file) return;
 

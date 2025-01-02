@@ -125,7 +125,7 @@ function Index() {
 								</Link>
 							</Card>
 							<Card className="p-6">
-								<Link href="/explore" className="flex gap-2 items-center">
+								<Link href="/explorer" className="flex gap-2 items-center">
 									<Table size={64} />
 									<div className="text-3xl">Explore</div>
 								</Link>

@@ -9,13 +9,26 @@ const FAQ_ITEMS = [
 	{
 		key: "mobile",
 		question: "Does it work on mobile?",
-		answer: "No. Maybe it works with smaller files (<100mb).",
+		answer:
+			"No. Maybe it works with smaller files (<25mb). My phone tab crashes after adding around 15k records.",
 	},
 	{
 		key: "acc",
 		question: "How is my file managed?",
 		answer:
-			"When you import your file, it is processed on your machine and the data is saved locally. There are no servers that processes the SQL.",
+			"When you import your file, it is processed on your machine and the data is saved locally. There are no servers that process the SQL.",
+	},
+	{
+		key: "help-1",
+		question: "How do I upload more data?",
+		answer:
+			"You can head over to the import page and upload the file again. The previously added records won't be touched and only new data will be added.",
+	},
+	{
+		key: "help-2",
+		question: "How do I delete my data?",
+		answer:
+			"You can click on the 'Reset Database' button on the home page or the chart visualizer. Alternatively, you can just delete all browser data for this website and refresh the page.",
 	},
 
 	{
