@@ -16,7 +16,11 @@ export function Setup() {
 						Export data from your device in XML format
 					</h2>
 					<Button asChild variant="link" className="px-0">
-						<a href="https://support.apple.com/en-in/guide/iphone/iph5ede58c3d/ios#:~:text=Share%20your%20health%20and%20fitness%20data%20in%20XML%20format">
+						<a
+							href="https://support.apple.com/en-in/guide/iphone/iph5ede58c3d/ios#:~:text=Share%20your%20health%20and%20fitness%20data%20in%20XML%20format"
+							target="_blank"
+							rel="noreferrer"
+						>
 							Visit apple support article
 							<ExternalLinkIcon />
 						</a>
@@ -30,7 +34,11 @@ export function Setup() {
 						Extract the contents of the file
 					</h2>
 					<Button asChild variant="link" className="px-0">
-						<a href="https://www.wikihow.com/Unzip-a-File">
+						<a
+							href="https://www.wikihow.com/Unzip-a-File"
+							target="_blank"
+							rel="noreferrer"
+						>
 							Visit wikiHow article
 							<ExternalLinkIcon />
 						</a>
