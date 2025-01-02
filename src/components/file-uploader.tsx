@@ -94,69 +94,28 @@ export function FileUploader() {
 		};
 	}, []);
 
-	const handleUploadSubmission = async () => {
-		if (!file) return;
-
-		await database.init().catch((error) => {
-			console.error(error);
-		});
-
-		const CHUNK_SIZE = 1024 * 1024;
-		let offset = 0;
-
-		function processChunk(file: File) {
-			if (offset >= file.size) {
-				importWorker.postMessage({ type: "complete" });
-				dispatch({ type: "import-progress", progress: 100 });
-				return;
-			}
-
-			const blob = file.slice(offset, offset + CHUNK_SIZE);
-			const reader = new FileReader();
-
-			reader.onload = (event) => {
-				const importProgress = (offset / file.size) * 100;
-
-				importWorker.postMessage({
-					type: "progress",
-					data: event.target?.result,
-					offset,
-					size: file.size,
-				});
-
-				offset += CHUNK_SIZE;
-				dispatch({ type: "import-progress", progress: importProgress });
-				processChunk(file);
-			};
-
-			reader.readAsArrayBuffer(blob);
-		}
-
-		importWorker.postMessage({
-			type: "init",
-			size: file.size,
-		});
-
-		processChunk(file);
-	};
-
 	// const handleUploadSubmission = async () => {
 	// 	if (!file) return;
 
 	// 	await database.init().catch((error) => {
-	// 		console.error("database-init:", error);
+	// 		console.error(error);
 	// 	});
 
-	// 	const CHUNK_SIZE = 1024 * 1024 * 10;
-	// 	const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+	// 	const CHUNK_SIZE = 1024 * 1024;
+	// 	let offset = 0;
 
-	// 	for (let i = 0; i < totalChunks; i++) {
-	// 		const offset = i * CHUNK_SIZE;
+	// 	function processChunk(file: File) {
+	// 		if (offset >= file.size) {
+	// 			importWorker.postMessage({ type: "complete" });
+	// 			dispatch({ type: "import-progress", progress: 100 });
+	// 			return;
+	// 		}
+
 	// 		const blob = file.slice(offset, offset + CHUNK_SIZE);
 	// 		const reader = new FileReader();
 
 	// 		reader.onload = (event) => {
-	// 			const importProgress = ((i + 1) / totalChunks) * 100;
+	// 			const importProgress = (offset / file.size) * 100;
 
 	// 			importWorker.postMessage({
 	// 				type: "progress",
@@ -165,19 +124,60 @@ export function FileUploader() {
 	// 				size: file.size,
 	// 			});
 
+	// 			offset += CHUNK_SIZE;
 	// 			dispatch({ type: "import-progress", progress: importProgress });
-
-	// 			if (i === totalChunks - 1) {
-	// 				importWorker.postMessage({ type: "complete" });
-	// 			}
+	// 			processChunk(file);
 	// 		};
 
 	// 		reader.readAsArrayBuffer(blob);
-	// 		await new Promise((resolve) => {
-	// 			reader.onloadend = resolve;
-	// 		});
 	// 	}
+
+	// 	importWorker.postMessage({
+	// 		type: "init",
+	// 		size: file.size,
+	// 	});
+
+	// 	processChunk(file);
 	// };
+
+	const handleUploadSubmission = async () => {
+		if (!file) return;
+
+		await database.init().catch((error) => {
+			console.error("database-init:", error);
+		});
+
+		const CHUNK_SIZE = 1024 * 1024;
+		const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+
+		for (let i = 0; i < totalChunks; i++) {
+			const offset = i * CHUNK_SIZE;
+			const blob = file.slice(offset, offset + CHUNK_SIZE);
+			const reader = new FileReader();
+
+			reader.onload = (event) => {
+				const importProgress = ((i + 1) / totalChunks) * 100;
+
+				importWorker.postMessage({
+					type: "progress",
+					data: event.target?.result,
+					offset,
+					size: file.size,
+				});
+
+				dispatch({ type: "import-progress", progress: importProgress });
+
+				if (i === totalChunks - 1) {
+					importWorker.postMessage({ type: "complete" });
+				}
+			};
+
+			reader.readAsArrayBuffer(blob);
+			await new Promise((resolve) => {
+				reader.onloadend = resolve;
+			});
+		}
+	};
 
 	const handleUpload = (files: File[]) => {
 		setFile(files[0]);
