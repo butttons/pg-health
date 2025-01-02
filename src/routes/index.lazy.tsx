@@ -67,17 +67,17 @@ function Index() {
 				<div className="mx-6 mt-12 lg:mx-20">
 					<img
 						src="/pg-health/ss-dark.png"
-						className="hidden dark:block lg:object-cover object-contain object-top w-full lg:h-[60vh] rounded-xl rounded-b-none shadow-xl"
+						className="hidden dark:block lg:object-cover object-contain object-top w-full lg:h-[60vh] rounded-sm lg:rounded-xl rounded-b-none lg:rounded-b-none shadow-xl"
 						alt="chart visualizer"
 					/>
 					<img
 						src="/pg-health/ss-light.png"
-						className="block dark:hidden lg:object-cover object-contain object-top w-full lg:h-[60vh] rounded-xl rounded-b-none shadow-xl"
+						className="block dark:hidden lg:object-cover object-contain object-top w-full lg:h-[60vh] rounded-sm lg:rounded-xl rounded-b-none lg:rounded-b-none shadow-xl"
 						alt="chart visualizer"
 					/>
 				</div>
 			</div>
-			<div className="py-12 mb-12 bg-secondary dark:bg-secondary">
+			<div className="relative z-10 py-12 mb-12 bg-secondary dark:bg-secondary">
 				<div className="container px-4 mx-auto">
 					<div className="mb-6 text-3xl text-center">How it works</div>
 					<div className="grid gap-4 lg:gap-12 md:grid-cols-2 lg:grid-cols-3">
@@ -134,7 +134,7 @@ function Index() {
 			</div>
 			<div>
 				{isLoading ? (
-					<Skeleton className="w-full h-20" />
+					<Skeleton className="mx-4 w-full h-20" />
 				) : data && data > 0 ? (
 					<div className="container px-4 mx-auto">
 						<HealthStats />

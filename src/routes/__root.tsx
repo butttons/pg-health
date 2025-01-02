@@ -45,7 +45,18 @@ export const Route = createRootRoute({
 
 							<Outlet />
 							<footer className="relative p-4 mx-4 mt-auto text-center border-t lg:mx-8">
-								Made by <a href="https://yash.bio">butttons</a>
+								Made by{" "}
+								<a href="https://yash.bio" target="_blank" rel="noreferrer">
+									butttons
+								</a>{" "}
+								&middot; Analytics by{" "}
+								<a
+									href="https://www.goatcounter.com/"
+									target="_blank"
+									rel="noreferrer"
+								>
+									GoatCounter
+								</a>
 							</footer>
 						</main>
 					</PGliteProvider>
