@@ -108,8 +108,8 @@ function Index() {
 			<div>
 				{isLoading ? (
 					<Skeleton className="w-full h-20" />
-				) : !(data && data > 0) ? (
-					<div>
+				) : data && data > 0 ? (
+					<div className="container px-4 mx-auto">
 						<HealthStats />
 						<div className="grid gap-6 my-6 md:grid-cols-3">
 							<Card className="p-6">
