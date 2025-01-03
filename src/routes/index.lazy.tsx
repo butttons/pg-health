@@ -64,20 +64,26 @@ function Index() {
 						Visualize with charts or explore with SQL, all on your machine.
 					</div>
 
-					<Button asChild size="lg">
-						<a href="#setup">Get started</a>
-					</Button>
+					{isLoading ? (
+						<Button asChild size="lg">
+							<Link href="/import">Get started</Link>
+						</Button>
+					) : (
+						<Button asChild size="lg">
+							<a href="#setup">Get started</a>
+						</Button>
+					)}
 				</div>
 
 				<div className="px-6 pt-20 mt-12 lg:px-20">
 					<img
 						src="/pg-health/ss-dark.png"
-						className="hidden dark:block ring-1 ring-inset ring-ring/50 lg:object-cover object-contain object-top w-full lg:h-[75vh] rounded-sm lg:rounded-lg rounded-b-none lg:rounded-b-none shadow-xl"
+						className="hidden dark:block ring-1 ring-inset ring-ring/50 lg:object-cover object-contain object-top w-full lg:h-[75vh] rounded-sm md:rounded-t-md lg:rounded-lg rounded-b-none lg:rounded-b-none shadow-xl"
 						alt="chart visualizer"
 					/>
 					<img
 						src="/pg-health/ss-light.png"
-						className="block dark:hidden lg:object-cover object-contain object-top w-full lg:h-[75vh] rounded-sm lg:rounded-md rounded-b-none lg:rounded-b-none shadow-xl"
+						className="block dark:hidden lg:object-cover object-contain object-top w-full lg:h-[75vh] rounded-sm lg:rounded-md md:rounded-t-md rounded-b-none lg:rounded-b-none shadow-xl"
 						alt="chart visualizer"
 					/>
 				</div>
@@ -139,7 +145,7 @@ function Index() {
 			</div>
 			<div>
 				{isLoading ? (
-					<Skeleton className="mx-4 w-full h-20" />
+					<Skeleton className="container mx-auto h-20" />
 				) : data && data > 0 ? (
 					<div className="container px-4 mx-auto">
 						<HealthStats />
