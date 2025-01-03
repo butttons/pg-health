@@ -236,7 +236,7 @@ export function HealthDataChart() {
 		return <Spinner size={32} className="mx-auto my-6 animate-spin" />;
 
 	return (
-		<Card>
+		<Card className="rounded-none border-0">
 			<CardHeader>
 				<Tabs defaultValue="builder" className="w-full">
 					<TabsList className="grid grid-cols-2 w-full">

@@ -46,7 +46,7 @@ function Index() {
 						clipPath:
 							"polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
 					}}
-					className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+					className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-500 to-pink-500 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
 				/>
 			</div>
 
@@ -63,16 +63,21 @@ function Index() {
 					<div className="pt-2 text-xl text-center border-t">
 						Visualize with charts or explore with SQL, all on your machine.
 					</div>
+
+					<Button asChild size="lg">
+						<a href="#setup">Get started</a>
+					</Button>
 				</div>
-				<div className="mx-6 mt-12 lg:mx-20">
+
+				<div className="px-6 pt-20 mt-12 lg:px-20">
 					<img
 						src="/pg-health/ss-dark.png"
-						className="hidden dark:block lg:object-cover object-contain object-top w-full lg:h-[60vh] rounded-sm lg:rounded-xl rounded-b-none lg:rounded-b-none shadow-xl"
+						className="hidden dark:block ring-1 ring-inset ring-ring/50 lg:object-cover object-contain object-top w-full lg:h-[75vh] rounded-sm lg:rounded-lg rounded-b-none lg:rounded-b-none shadow-xl"
 						alt="chart visualizer"
 					/>
 					<img
 						src="/pg-health/ss-light.png"
-						className="block dark:hidden lg:object-cover object-contain object-top w-full lg:h-[60vh] rounded-sm lg:rounded-xl rounded-b-none lg:rounded-b-none shadow-xl"
+						className="block dark:hidden lg:object-cover object-contain object-top w-full lg:h-[75vh] rounded-sm lg:rounded-md rounded-b-none lg:rounded-b-none shadow-xl"
 						alt="chart visualizer"
 					/>
 				</div>
@@ -161,7 +166,7 @@ function Index() {
 					</div>
 				) : (
 					<div className="py-6">
-						<div className="container px-4 mx-auto lg:px-20">
+						<div className="container px-4 mx-auto lg:px-20" id="setup">
 							<Setup />
 						</div>
 					</div>
