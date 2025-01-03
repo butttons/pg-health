@@ -19,6 +19,7 @@ import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TypographyInlineCode } from "@/components/ui/typograpghy";
+import { ExternalLinkIcon } from "lucide-react";
 
 export const Route = createLazyFileRoute("/")({
 	component: Index,
@@ -106,9 +107,9 @@ function Index() {
 									href="https://pglite.dev"
 									target="_blank"
 									rel="noreferrer"
-									className="text-blue-500"
+									className="inline-flex gap-1 items-center text-blue-500 hover:underline underline-offset-4"
 								>
-									pglite.dev
+									<span>pglite</span> <ExternalLinkIcon size={12} />
 								</a>
 							</CardContent>
 						</Card>

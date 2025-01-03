@@ -44,9 +44,14 @@ export const Route = createRootRoute({
 							</nav>
 
 							<Outlet />
-							<footer className="relative p-4 mx-4 mt-auto text-center border-t lg:mx-8">
+							<footer className="relative p-4 mx-4 mt-auto text-xs text-center border-t lg:mx-8">
 								Made by{" "}
-								<a href="https://yash.bio" target="_blank" rel="noreferrer">
+								<a
+									href="https://yash.bio"
+									target="_blank"
+									rel="noreferrer"
+									className="text-blue-500 hover:underline underline-offset-4"
+								>
 									butttons
 								</a>{" "}
 								&middot; Analytics by{" "}
@@ -54,6 +59,7 @@ export const Route = createRootRoute({
 									href="https://www.goatcounter.com/"
 									target="_blank"
 									rel="noreferrer"
+									className="text-blue-500 hover:underline underline-offset-4"
 								>
 									GoatCounter
 								</a>
