@@ -1,0 +1,1 @@
+import{a6 as t,j as o}from"./index-DrHvzDtu.js";import{S as e}from"./setup-4JDbTcQi.js";import"./index-CoY66I97.js";import"./card-C44mJjD6.js";const a=t("/import")({component:r});function r(){return o.jsx("div",{className:"container p-4 mx-auto",children:o.jsx(e,{})})}export{a as Route};
